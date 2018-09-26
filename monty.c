@@ -1,16 +1,6 @@
 #include "monty.h"
 
 
-void push(int num)
-{
-	printf("in func num is %i\n", num);
-}
-
-void pall()
-{
-	printf("in func print all\n");
-}
-
 /**
  * main - Entry point
  * Description: run the m file
@@ -22,6 +12,7 @@ int main(int argc, char **argv)
         char *token;
         char array[2][80];
         int i = 0, line_num = 1;
+	stack_t *stack = NULL;
 
 	if (argc < 2)
 	{
@@ -46,9 +37,9 @@ int main(int argc, char **argv)
 			i++;
 		}
 		if (strcmp(array[0], "push") == 0)
-			push(atoi(array[1]));
+			push(&stack, atoi(array[1]));
 		else if (strcmp(array[0], "pall") == 0)
-			pall();
+			pall(stack);
 		else
 		{
 			fprintf(stderr, "L%i unknown instruction %s\n",\
