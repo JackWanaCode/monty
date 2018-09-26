@@ -5,32 +5,36 @@
  *
  * Return: 0 or 1
  */
-stack_t *push(stack_t **stack, const int num)
+unsigned line_number;
+void push_n(stack_t **stack, const int num)
 {
 	stack_t *new;
 
 	if (stack == NULL)
-		return (NULL);
+		return;
 	new = malloc(sizeof(stack_t));
 	if (new == NULL)
-		return (NULL);
+	{
+		fprintf(stderr, "L%i : malloc failed\n", line_number);
+		exit(EXIT_FAILURE);
+	}
 	new->n = num;
 	new->next = (*stack);
 	new->prev = NULL;
 	if ((*stack) != NULL)
 		(*stack)->prev = new;
 	(*stack) = new;
-	return (*stack);
 }
 
-int pall(const stack_t *stack)
+void pall(stack_t *stack)
 {
+	stack_t *curr = stack;
+
 	if (stack == NULL)
-		return (0);
-	while (stack != NULL)
+		return;
+	while (curr != NULL)
 	{
 		printf("%i\n", stack->n);
-		stack = stack->next;
+		curr = curr->next;
 	}
-	return (0);
 }

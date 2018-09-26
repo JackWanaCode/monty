@@ -5,7 +5,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <limits.h>
+#include <ctype.h>
 
+extern unsigned int line_number;
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -22,7 +24,8 @@ typedef struct stack_s
         struct stack_s *prev;
         struct stack_s *next;
 } stack_t;
-
+void push_n(stack_t **stack, const int num);
+void pall(stack_t *stack);
 /**
  * struct instruction_s - opcode and its function
  * @opcode: the opcode
@@ -34,11 +37,8 @@ typedef struct stack_s
 typedef struct instruction_s
 {
         char *opcode;
-        void (*f)(stack_t **stack, unsigned int line_number);
+        void (*f)();
 } instruction_t;
-
-stack_t *push(stack_t **stack, const int num);
-int pall(const stack_t *stack);
 
 
 
