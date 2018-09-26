@@ -5,7 +5,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <limits.h>
-extern int global_variable;
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -37,9 +36,25 @@ typedef struct instruction_s
         void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
+/**
+ * struct global_variable - struct to contain data
+ * @number: opcode's parameter
+ * @line_number: line number at currect line
+ * @stack: head of double linked list
+ * for stack, queues, LIFO, FIFO Holberton project
+ */
+typedef struct global_v
+{
+        unsigned int line_number;
+        int number;
+        stack_t *stack;
+} global_var;
+
+extern global_var global_variable;
+
 void push(stack_t **stack, unsigned int line_number);
 void pall(stack_t **stack, unsigned int line_number);
 void pint(stack_t **stack, unsigned int line_number);
-
+void exec(char (*array)[80]);
 
 #endif

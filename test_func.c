@@ -5,7 +5,7 @@
  *
  * Return: 0 or 1
  */
-int global_variable;
+global_var global_variable;
 void push(stack_t **stack, unsigned int line_number)
 {
 	stack_t *new;
@@ -16,7 +16,7 @@ void push(stack_t **stack, unsigned int line_number)
 	new = malloc(sizeof(stack_t));
 	if (new == NULL)
 		printf("ERROR");
-	new->n = global_variable;
+	new->n = global_variable.number;
 	new->next = (*stack);
 	new->prev = NULL;
 	if ((*stack) != NULL)
@@ -54,14 +54,4 @@ void pint(stack_t **stack, unsigned int line_number)
 		runner = runner->prev;
 	}
 	printf("%i\n", runner->n);
-}
-void main(void)
-{
-	stack_t *head;
-	head = NULL;
-	push(&head, global_variable++);
-	push(&head, global_variable++);
-	push(&head, global_variable++);
-	pall(&head, 1);
- 	pint(&head, 1);
 }

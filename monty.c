@@ -6,13 +6,14 @@
  * Description: run the m file
  * Return: 0
  */
+global_var global_variable;
+
 int main(int argc, char **argv)
 {
 	char line[80];
         char *token;
         char array[2][80];
-        int i = 0, line_num = 1;
-	stack_t *stack = NULL;
+	int i = 0;
 
 	if (argc < 2)
 	{
@@ -25,7 +26,8 @@ int main(int argc, char **argv)
 		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
 		exit(EXIT_FAILURE);
 	}
-
+	global_variable.line_number = 1;
+	global_variable.stack = NULL;
 	while (fgets(line, sizeof(line), file))
 	{
 		i = 0;
@@ -36,17 +38,8 @@ int main(int argc, char **argv)
 			token = strtok(NULL, " \n");
 			i++;
 		}
-		if (strcmp(array[0], "push") == 0)
-			push(&stack, atoi(array[1]));
-		else if (strcmp(array[0], "pall") == 0)
-			pall(stack);
-		else
-		{
-			fprintf(stderr, "L%i unknown instruction %s\n",\
-				line_num, array[0]);
-			exit(EXIT_FAILURE);
-		}
-		line_num++;
+		exec(array);
+		global_variable.line_number++;
 	}
 	return (0);
 }
