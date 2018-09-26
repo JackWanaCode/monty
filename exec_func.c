@@ -17,8 +17,9 @@ void exec(char (*array)[80])
 		{"pint", pint},
 		{"pop", pop},
 		{"swap", swap},
+		{"add", add},
 	};
-	for(j = 0; j < 5; j++)
+	for(j = 0; j < 6; j++)
 	{
 		if (strcmp(func_array[j].opcode, array[0]) == 0)
 		{
@@ -37,7 +38,7 @@ void exec(char (*array)[80])
 			func_array[j].f(&(global_variable.stack), global_variable.line_number);
 			return;
 		}
-		else if (j == 5)
+		else if (j == 6)
 		{
 			fprintf(stderr, "L%i unknown instruction %s",	\
 				global_variable.line_number, array[0]);
