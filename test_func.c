@@ -55,3 +55,21 @@ void pint(stack_t **stack, unsigned int line_number)
 	}
 	printf("%i\n", runner->n);
 }
+void swap(stack_t **stack, unsigned int line_number)
+{
+	stack_t *runner = (*stack)->next; /*runner is second node*/
+
+	if (!stack || !(*stack) || (*stack)->next == NULL)
+	{
+		fprintf(stderr, "%u: can't swap, stack too short\n"
+			, line_number);
+		perror("EXIT_FAILURE\n");
+	}
+	(*stack)->next = runner->next;/*stk-n goes to tail node*/
+	runner->next->prev = (*stack);
+	(*stack)->prev = runner->prev;
+	runner->prev = NULL;
+	runner->next = (*stack);
+	*stack = runner;
+	pall(stack, line_number);
+}
