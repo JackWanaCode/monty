@@ -14,9 +14,11 @@ void exec(char (*array)[80])
 	instruction_t func_array[] = {
 		{"push", push},
 		{"pall", pall},
+		{"pint", pint},
+		{"pop", pop},
 		{"swap", swap},
 	};
-	for(j = 0; j < 3; j++)
+	for(j = 0; j < 5; j++)
 	{
 		if (strcmp(func_array[j].opcode, array[0]) == 0)
 		{
@@ -35,7 +37,7 @@ void exec(char (*array)[80])
 			func_array[j].f(&(global_variable.stack), global_variable.line_number);
 			return;
 		}
-		else if (j == 3)
+		else if (j == 5)
 		{
 			fprintf(stderr, "L%i unknown instruction %s",	\
 				global_variable.line_number, array[0]);

@@ -1,9 +1,10 @@
 #include "monty.h"
 
 /**
- * main - test functions
- *
- * Return: 0 or 1
+ * push - Pushes an element to the stack
+ * @stack: Struct stack_s as stack_t **ptr
+ * @line_number: File line number
+ * Return: Nothing (void)
  */
 global_var global_variable;
 void push(stack_t **stack, unsigned int line_number)
@@ -23,7 +24,12 @@ void push(stack_t **stack, unsigned int line_number)
 		(*stack)->prev = new;
 	(*stack) = new;
 }
-
+/**
+ * pall - Prints All values on stack from top down
+ * @stack: Struct stack_s as stack_t **ptr
+ * @line_number: File line number
+ * Return: Nothing (void)
+ */
 void pall(stack_t **stack, unsigned int line_number)
 {
 	stack_t *copy = (*stack);
@@ -37,24 +43,44 @@ void pall(stack_t **stack, unsigned int line_number)
 		copy = copy->next;
 	}
 }
+/**
+ * pint - Prints value at the top of the stack + newline
+ * @stack: Struct stack_s as stack_t **ptr
+ * @line_number: File line number
+ * Return: Nothing (void)
+ */
 void pint(stack_t **stack, unsigned int line_number)
 {
-	stack_t *runner = (*stack);
-
 	(void) line_number;
 	if (stack == NULL)
 		printf("ERROR");
-	while (runner->next != NULL)
-	{
-		runner = runner->next;
-	}
-	while (runner->prev != NULL)
-	{
-		printf("%i\n", runner->n);
-		runner = runner->prev;
-	}
-	printf("%i\n", runner->n);
+	printf("%i\n", (*stack)->n);
 }
+
+/**
+ * pop - Removes the top element of the stack
+ * @stack: Struct stack_s as stack_t **ptr
+ * @line_number: File line number
+ * Return: Nothing (void)
+ */
+void pop(stack_t **stack, unsigned int line_number)
+{
+	stack_t *new_stk = NULL;
+
+	(void) line_number;
+	if (!stack || !(*stack))
+		printf("ERROR");
+	new_stk = (*stack);
+	(*stack) = (*stack)->next;
+	free(new_stk);
+}
+
+/**
+ * swap - Swaps the top two elements of the stack
+ * @stack: Struct stack_s as stack_t **ptr
+ * @line_number: File line number
+ * Return: Nothing (void)
+ */
 void swap(stack_t **stack, unsigned int line_number)
 {
 	stack_t *runner = (*stack)->next; /*runner is second node*/
