@@ -31,13 +31,13 @@ int main(int argc, char **argv)
 	while (fgets(line, sizeof(line), global_variable.file))
 	{
 		i = 0;
-		if (line[0] != '\n')
+		token = strtok(line, " \n\t");
+		if (token)
 		{
-			token = strtok(line, " \n");
 			while (token != NULL)
 			{
 				strcpy(array[i], token);
-				token = strtok(NULL, " \n");
+				token = strtok(NULL, " \n\t");
 				i++;
 			}
 			exec(array);
