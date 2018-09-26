@@ -1,22 +1,39 @@
 #include "monty.h"
 
-/**
- * main - test functions
- *
- * Return: 0 or 1
- */
 global_var global_variable;
+
+/**
+ * push - Pushes an element to the stack
+ * @stack: Struct stack_s as stack_t **ptr
+ * @line_number: File line number
+ * Return: Nothing (void)
+ */
 void push(stack_t **stack, unsigned int line_number)
 {
 	stack_t *new;
+	int i = 0;
+	char *num = global_variable.number;
 
-	(void) line_number;
-	if (stack == NULL)
-		printf("ERROR");
+	while (1)
+	{
+		if (num[i] == '\0')
+			break;
+		if (!num || (num[i] < '0' || num[i] > '9'))
+		{
+			fprintf(stderr, "L%i: usage: push integer\n", line_number);
+			free_list(global_variable.stack);
+			fclose(global_variable.file);
+			exit(EXIT_FAILURE);
+		}
+		i++;
+	}
 	new = malloc(sizeof(stack_t));
 	if (new == NULL)
-		printf("ERROR");
-	new->n = global_variable.number;
+	{
+		fprintf(stderr, "Error: malloc failed");
+		exit(EXIT_FAILURE);
+	}
+	new->n = atoi(num);
 	new->next = (*stack);
 	new->prev = NULL;
 	if ((*stack) != NULL)
@@ -24,37 +41,74 @@ void push(stack_t **stack, unsigned int line_number)
 	(*stack) = new;
 }
 
+/**
+ * pall - Prints All values on stack from top down
+ * @stack: Struct stack_s as stack_t **ptr
+ * @line_number: File line number
+ * Return: Nothing (void)
+ */
 void pall(stack_t **stack, unsigned int line_number)
 {
 	stack_t *copy = (*stack);
 
 	(void) line_number;
 	if (stack == NULL)
-		printf("ERROR");
+		return;
 	while (copy != NULL)
 	{
 		printf("%i\n", copy->n);
 		copy = copy->next;
 	}
 }
+
+/**
+ * pint - Prints value at the top of the stack + newline
+ * @stack: Struct stack_s as stack_t **ptr
+ * @line_number: File line number
+ * Return: Nothing (void)
+ */
 void pint(stack_t **stack, unsigned int line_number)
 {
-	stack_t *runner = (*stack);
+	(void) line_number;
+	if (stack == NULL || *stack == NULL)
+	{
+		fprintf(stderr, "L%i: can't pint, stack empty\n", line_number);
+		free_list(global_variable.stack);
+		fclose(global_variable.file);
+		exit(EXIT_FAILURE);
+	}
+	printf("%i\n", (*stack)->n);
+}
+
+/**
+ * pop - Removes the top element of the stack
+ * @stack: Struct stack_s as stack_t **ptr
+ * @line_number: File line number
+ * Return: Nothing (void)
+ */
+void pop(stack_t **stack, unsigned int line_number)
+{
+	stack_t *new_stk = NULL;
 
 	(void) line_number;
-	if (stack == NULL)
-		printf("ERROR");
-	while (runner->next != NULL)
+	if (!stack || !(*stack))
 	{
-		runner = runner->next;
+		fprintf(stderr, "L%i: can't pop an empty stack\n", line_number);
+		free_list(global_variable.stack);
+		fclose(global_variable.file);
+		exit(EXIT_FAILURE);
 	}
-	while (runner->prev != NULL)
-	{
-		printf("%i\n", runner->n);
-		runner = runner->prev;
-	}
-	printf("%i\n", runner->n);
+	new_stk = (*stack);
+	(*stack) = (*stack)->next;
+	free(new_stk);
 }
+
+/**
+ * swap - Swaps the top two elements of the stack
+ * @stack: Struct stack_s as stack_t **ptr
+ * @line_number: File line number
+ * Return: Nothing (void)
+ */
 void swap(stack_t **stack, unsigned int line_number)
 {
 	stack_t *runner = (*stack)->next; /*runner is second node*/
@@ -63,7 +117,9 @@ void swap(stack_t **stack, unsigned int line_number)
 	{
 		fprintf(stderr, "%u: can't swap, stack too short\n"
 			, line_number);
-		perror("EXIT_FAILURE\n");
+		free_list(global_variable.stack);
+		fclose(global_variable.file);
+		exit(EXIT_FAILURE);
 	}
 	(*stack)->next = runner->next;/*stk-n goes to tail node*/
 	runner->next->prev = (*stack);
@@ -71,5 +127,4 @@ void swap(stack_t **stack, unsigned int line_number)
 	runner->prev = NULL;
 	runner->next = (*stack);
 	*stack = runner;
-	pall(stack, line_number);
 }
