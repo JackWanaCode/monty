@@ -71,8 +71,10 @@ void swap(stack_t ** stack, unsigned int line_number)
 	stack_t *runner = (*stack)->next; /*runner is second node*/
 
 	if (!stack || !(*stack) || (*stack)->next == NULL)
-		fprintf(stderr, "%u: can't swap, stack too short\nEXIT_FAILURE"
-			, line_number);
+	{
+		fprintf(stderr, "%u: can't swap, stack too short\n", line_number);
+		perror("EXIT_FAILURE\n");
+	}
 	(*stack)->next = runner->next;/*stk-n goes to tail node*/
 	runner->next->prev = (*stack);
 	(*stack)->prev = runner->prev;
