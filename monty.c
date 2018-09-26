@@ -11,36 +11,40 @@ global_var global_variable;
 int main(int argc, char **argv)
 {
 	char line[80];
-        char *token;
-        char array[2][80];
+	char *token;
+	char array[2][80];
 	int i = 0;
-	FILE *file;
 
 	if (argc < 2)
 	{
-		perror("USAGE: monty file");
-                exit(EXIT_FAILURE);
+		fprintf(stderr, "USAGE: monty file\n");
+		exit(EXIT_FAILURE);
 	}
-	file = fopen(argv[1], "r");
-	if (!file)
+	global_variable.file = fopen(argv[1], "r");
+	if (!(global_variable.file))
 	{
 		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
 		exit(EXIT_FAILURE);
 	}
 	global_variable.line_number = 1;
 	global_variable.stack = NULL;
-	while (fgets(line, sizeof(line), file))
+	while (fgets(line, sizeof(line), global_variable.file))
 	{
 		i = 0;
-		token = strtok(line, " \n");
-		while(token != NULL)
+		if (line[0] != '\n')
 		{
-			strcpy(array[i], token);
-			token = strtok(NULL, " \n");
-			i++;
+			token = strtok(line, " \n");
+			while (token != NULL)
+			{
+				strcpy(array[i], token);
+				token = strtok(NULL, " \n");
+				i++;
+			}
+			exec(array);
 		}
-		exec(array);
 		global_variable.line_number++;
 	}
+	fclose(global_variable.file);
+	free_list(global_variable.stack);
 	return (0);
 }
