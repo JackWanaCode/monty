@@ -55,6 +55,31 @@ void pint(stack_t **stack, unsigned int line_number)
 	}
 	printf("%i\n", runner->n);
 }
+void pop(stack_t **stack, unsigned int line_number)
+{
+	stack_t *new_stk = NULL;
+
+	(void) line_number;
+	if (!stack || !(*stack))
+		printf("ERROR");
+	new_stk = (*stack);
+	(*stack) = (*stack)->next;
+	free(new_stk);
+}
+void swap(stack_t ** stack, unsigned int line_number)
+{
+	stack_t *runner = (*stack)->next; /*runner is second node*/
+
+	if (!stack || !(*stack) || (*stack)->next == NULL)
+		fprintf(stderr, "%u: can't swap, stack too short\nEXIT_FAILURE"
+			, line_number);
+	(*stack)->next = runner->next;/*stk-n goes to tail node*/
+	runner->next->prev = (*stack);
+	(*stack)->prev = runner->prev;
+	runner->prev = NULL;
+	runner->next = (*stack);
+	*stack = runner;
+}
 void main(void)
 {
 	stack_t *head;
@@ -63,5 +88,12 @@ void main(void)
 	push(&head, global_variable++);
 	push(&head, global_variable++);
 	pall(&head, 1);
- 	pint(&head, 1);
+/*	pint(&head, 1);
+	pop(&head, 1);
+	pall(&head, 1);
+	pop(&head, 1);
+	pall(&head, 1);
+	pop(&head, 1);
+*/	swap(&head, 1);
+	pall(&head, 1);
 }
