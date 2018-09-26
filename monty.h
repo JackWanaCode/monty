@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <limits.h>
-
+extern int global_variable;
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -37,9 +37,9 @@ typedef struct instruction_s
         void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-stack_t *push(stack_t **stack, const int num);
-int pall(const stack_t *stack);
-
+void push(stack_t **stack, unsigned int line_number);
+void pall(stack_t **stack, unsigned int line_number);
+void pint(stack_t **stack, unsigned int line_number);
 
 
 #endif

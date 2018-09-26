@@ -5,32 +5,63 @@
  *
  * Return: 0 or 1
  */
-stack_t *push(stack_t **stack, const int num)
+int global_variable;
+void push(stack_t **stack, unsigned int line_number)
 {
 	stack_t *new;
 
+	(void) line_number;
 	if (stack == NULL)
-		return (NULL);
+		printf("ERROR");
 	new = malloc(sizeof(stack_t));
 	if (new == NULL)
-		return (NULL);
-	new->n = num;
+		printf("ERROR");
+	new->n = global_variable;
 	new->next = (*stack);
 	new->prev = NULL;
 	if ((*stack) != NULL)
 		(*stack)->prev = new;
 	(*stack) = new;
-	return (*stack);
 }
 
-int pall(const stack_t *stack)
+void pall(stack_t **stack, unsigned int line_number)
 {
+	stack_t *copy = (*stack);
+
+	(void) line_number;
 	if (stack == NULL)
-		return (0);
-	while (stack != NULL)
+		printf("ERROR");
+	while (copy != NULL)
 	{
-		printf("%i\n", stack->n);
-		stack = stack->next;
+		printf("%i\n", copy->n);
+		copy = copy->next;
 	}
-	return (0);
+}
+void pint(stack_t **stack, unsigned int line_number)
+{
+	stack_t *runner = (*stack);
+
+	(void) line_number;
+	if (stack == NULL)
+		printf("ERROR");
+	while (runner->next != NULL)
+	{
+		runner = runner->next;
+	}
+	while (runner->prev != NULL)
+	{
+		printf("%i\n", runner->n);
+		runner = runner->prev;
+	}
+	printf("%i\n", runner->n);
+}
+void main(void)
+{
+	stack_t *head;
+	head = NULL;
+	push(&head, global_variable++);
+	push(&head, global_variable++);
+	push(&head, global_variable++);
+	pall(&head, 1);
+ 	pint(&head, 1);
 }
