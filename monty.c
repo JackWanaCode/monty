@@ -14,13 +14,14 @@ int main(int argc, char **argv)
         char *token;
         char array[2][80];
 	int i = 0;
+	FILE *file;
 
 	if (argc < 2)
 	{
 		perror("USAGE: monty file");
                 exit(EXIT_FAILURE);
 	}
-	FILE *file = fopen(argv[1], "r");
+	file = fopen(argv[1], "r");
 	if (!file)
 	{
 		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);

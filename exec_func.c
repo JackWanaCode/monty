@@ -14,7 +14,7 @@ void exec(char (*array)[80])
 	instruction_t func_array[] = {
 		{"push", push},
 		{"pall", pall},
-		{"pall", pall},
+		{"swap", swap},
 	};
 	for(j = 0; j < 3; j++)
 	{
