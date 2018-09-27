@@ -1,13 +1,13 @@
 #include "monty.h"
-
+global_var global_variable;
 
 /**
  * main - Entry point
+ * @argc: argument count
+ * @argv: argument values
  * Description: run the m file
  * Return: 0
  */
-global_var global_variable;
-
 int main(int argc, char **argv)
 {
 	char line[80];
