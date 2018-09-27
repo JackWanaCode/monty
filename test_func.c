@@ -18,7 +18,7 @@ void push(stack_t **stack, unsigned int line_number)
 	{
 		if (i != 0 && num[i] == '\0')
 			break;
-		if (!num || (num[i] < '0' || num[i] > '9') || num[0] == '\0')
+		if (!num || (atoi(num) == 0 && num[0] != '0'))
 		{
 			fprintf(stderr, "L%i: usage: push integer\n", line_number);
 			free_list(global_variable.stack);
