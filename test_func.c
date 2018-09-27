@@ -14,11 +14,18 @@ void push(stack_t **stack, unsigned int line_number)
 	int i = 0;
 	char *num = global_variable.number;
 
+	if (!num)
+	{
+		fprintf(stderr, "L%i: usage: push integer\n", line_number);
+		free_list(global_variable.stack);
+		fclose(global_variable.file);
+		exit(EXIT_FAILURE);
+	}
 	while (1)
 	{
 		if (i != 0 && num[i] == '\0')
 			break;
-		if (!num || (atoi(num) == 0 && num[0] != '0'))
+		if ((num[i] < '0' || num[i] > '9') && num[0] != '-' && num[0] != '+')
 		{
 			fprintf(stderr, "L%i: usage: push integer\n", line_number);
 			free_list(global_variable.stack);
@@ -30,7 +37,7 @@ void push(stack_t **stack, unsigned int line_number)
 	new = malloc(sizeof(stack_t));
 	if (new == NULL)
 	{
-		fprintf(stderr, "Error: malloc failed");
+		fprintf(stderr, "Error: malloc failed\n");
 		free_list(global_variable.stack);
 		fclose(global_variable.file);
 		exit(EXIT_FAILURE);
