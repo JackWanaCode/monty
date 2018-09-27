@@ -16,7 +16,7 @@ void push(stack_t **stack, unsigned int line_number)
 
 	if (!num)
 	{
-		fprintf(stderr, "L%i: usage: push integer\n", line_number);
+		fprintf(stderr, "L%u: usage: push integer\n", line_number);
 		free_list(global_variable.stack);
 		fclose(global_variable.file);
 		exit(EXIT_FAILURE);
@@ -28,7 +28,7 @@ void push(stack_t **stack, unsigned int line_number)
 		if (num[i] < '0' || num[i] > '9')
 			if (((num[0] != '-' && num[0] != '+') && i == 0) || i != 0)
 			{
-				fprintf(stderr, "L%i: usage: push integer\n", line_number);
+				fprintf(stderr, "L%u: usage: push integer\n", line_number);
 				free_list(global_variable.stack);
 				fclose(global_variable.file);
 				exit(EXIT_FAILURE);
