@@ -31,6 +31,8 @@ void push(stack_t **stack, unsigned int line_number)
 	if (new == NULL)
 	{
 		fprintf(stderr, "Error: malloc failed");
+		free_list(global_variable.stack);
+		fclose(global_variable.file);
 		exit(EXIT_FAILURE);
 	}
 	new->n = atoi(num);
@@ -52,7 +54,7 @@ void pall(stack_t **stack, unsigned int line_number)
 	stack_t *copy = (*stack);
 
 	(void) line_number;
-	if (stack == NULL)
+	if (stack == NULL || (*stack) == NULL)
 		return;
 	while (copy != NULL)
 	{
