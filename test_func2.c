@@ -1,12 +1,11 @@
 #include "monty.h"
-
+global_var global_variable;
 /**
  * add - Adds the top two elements of the stack
  * @stack: Struct stack_s as stack_t **ptr
  * @line_number: File line number
  * Return: Nothing (void)
  */
-global_var global_variable;
 void add(stack_t **stack, unsigned int line_number)
 {
 	int j;
