@@ -25,13 +25,14 @@ void push(stack_t **stack, unsigned int line_number)
 	{
 		if (i != 0 && num[i] == '\0')
 			break;
-		if ((num[i] < '0' || num[i] > '9') && num[0] != '-' && num[0] != '+')
-		{
-			fprintf(stderr, "L%i: usage: push integer\n", line_number);
-			free_list(global_variable.stack);
-			fclose(global_variable.file);
-			exit(EXIT_FAILURE);
-		}
+		if (num[i] < '0' || num[i] > '9')
+			if (((num[0] != '-' && num[0] != '+') && i == 0) || i != 0)
+			{
+				fprintf(stderr, "L%i: usage: push integer\n", line_number);
+				free_list(global_variable.stack);
+				fclose(global_variable.file);
+				exit(EXIT_FAILURE);
+			}
 		i++;
 	}
 	new = malloc(sizeof(stack_t));
@@ -61,8 +62,6 @@ void pall(stack_t **stack, unsigned int line_number)
 	stack_t *copy = (*stack);
 
 	(void) line_number;
-	if (stack == NULL || (*stack) == NULL)
-		return;
 	while (copy != NULL)
 	{
 		printf("%i\n", copy->n);

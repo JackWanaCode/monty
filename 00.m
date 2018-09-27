@@ -1,4 +1,5 @@
-push 1
+push -1
+push +2
 pall
-swap
+push +3y
 pall
