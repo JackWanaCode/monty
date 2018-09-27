@@ -14,19 +14,25 @@ void push(stack_t **stack, unsigned int line_number)
 	int i = 0;
 	char *num = global_variable.number;
 
-	if ((num[0] == '-' || num[0] == '+') && num[1] != '\0')
-		i = 1;
+	if (!num)
+	{
+		fprintf(stderr, "L%i: usage: push integer\n", line_number);
+		free_list(global_variable.stack);
+		fclose(global_variable.file);
+		exit(EXIT_FAILURE);
+	}
 	while (1)
 	{
-		if (num[0] == '0' || isdigit(num[i]) == 0)
-		{
-			fprintf(stderr, "L%u: usage: push integer\n", line_number);
-			free_list(global_variable.stack);
-			fclose(global_variable.file);
-			exit(EXIT_FAILURE);
-		}
-		else if (num[i] == '\0' && i != 0)
+		if (i != 0 && num[i] == '\0')
 			break;
+		if (num[i] < '0' || num[i] > '9')
+			if (((num[0] != '-' && num[0] != '+') && i == 0) || i != 0)
+			{
+				fprintf(stderr, "L%i: usage: push integer\n", line_number);
+				free_list(global_variable.stack);
+				fclose(global_variable.file);
+				exit(EXIT_FAILURE);
+			}
 		i++;
 	}
 	new = malloc(sizeof(stack_t));
