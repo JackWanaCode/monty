@@ -27,7 +27,7 @@ void exec(char (*array)[80])
 		}
 		else if (j == 4)
 		{
-			fprintf(stderr, "L%i: unknown instruction %s\n",
+			fprintf(stderr, "L%u: unknown instruction %s\n",
 				global_variable.line_number, array[0]);
 			fclose(global_variable.file);
 			free_list(global_variable.stack);
