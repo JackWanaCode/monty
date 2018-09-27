@@ -130,7 +130,8 @@ void swap(stack_t **stack, unsigned int line_number)
 		exit(EXIT_FAILURE);
 	}
 	(*stack)->next = runner->next;
-	runner->next->prev = (*stack);
+	if (runner->next)
+		runner->next->prev = (*stack);
 	(*stack)->prev = runner->prev;
 	runner->prev = NULL;
 	runner->next = (*stack);
