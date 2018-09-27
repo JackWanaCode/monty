@@ -31,6 +31,8 @@ int main(int argc, char **argv)
 	while (fgets(line, sizeof(line), global_variable.file))
 	{
 		i = 0;
+		memset(array[0], 0, 80);
+		memset(array[1], 0, 80);
 		token = strtok(line, " \n\t");
 		if (token)
 		{
