@@ -119,7 +119,7 @@ void pop(stack_t **stack, unsigned int line_number)
  */
 void swap(stack_t **stack, unsigned int line_number)
 {
-	stack_t *runner = (*stack)->next; /*runner is second node*/
+	stack_t *runner;
 
 	if (!stack || !(*stack) || (*stack)->next == NULL)
 	{
@@ -129,6 +129,7 @@ void swap(stack_t **stack, unsigned int line_number)
 		fclose(global_variable.file);
 		exit(EXIT_FAILURE);
 	}
+	runner = (*stack)->next;
 	(*stack)->next = runner->next;
 	if (runner->next)
 		runner->next->prev = (*stack);
