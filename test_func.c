@@ -21,12 +21,11 @@ void push(stack_t **stack, unsigned int line_number)
 		fclose(global_variable.file);
 		exit(EXIT_FAILURE);
 	}
-	while (1)
+	if ((num[0] == '-' || num[0] == '+') && num[1] != '\0')
+		i = 1;
+	while (num[i] != '\0')
 	{
-		if (i != 0 && num[i] == '\0')
-			break;
-		if (num[i] < '0' || num[i] > '9')
-			if (((num[0] != '-' && num[0] != '+') && i == 0) || i != 0)
+		if (isdigit(num[i]) == 0)
 			{
 				fprintf(stderr, "L%u: usage: push integer\n", line_number);
 				free_list(global_variable.stack);
