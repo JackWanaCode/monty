@@ -123,13 +123,13 @@ void swap(stack_t **stack, unsigned int line_number)
 
 	if (!stack || !(*stack) || (*stack)->next == NULL)
 	{
-		fprintf(stderr, "%u: can't swap, stack too short\n"
+		fprintf(stderr, "L%u: can't swap, stack too short\n"
 			, line_number);
 		free_list(global_variable.stack);
 		fclose(global_variable.file);
 		exit(EXIT_FAILURE);
 	}
-	(*stack)->next = runner->next;/*stk-n goes to tail node*/
+	(*stack)->next = runner->next;
 	runner->next->prev = (*stack);
 	(*stack)->prev = runner->prev;
 	runner->prev = NULL;
