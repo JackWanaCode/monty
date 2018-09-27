@@ -12,9 +12,11 @@ void add(stack_t **stack, unsigned int line_number)
 	int j;
 	stack_t *runner;
 
-	if ((*stack) == NULL || stack == NULL || (*stack)->next == NULL)
+	if (stack == NULL || (*stack) == NULL || (*stack)->next == NULL)
 	{
 		fprintf(stderr, "L%u: can't add, stack too short", line_number);
+		free_list(global_variable.stack);
+		fclose(global_variable.file);
 		exit(EXIT_FAILURE);
 	}
 	runner = (*stack)->next;
