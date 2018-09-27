@@ -80,7 +80,7 @@ void pint(stack_t **stack, unsigned int line_number)
 	(void) line_number;
 	if (stack == NULL || *stack == NULL)
 	{
-		fprintf(stderr, "L%i: can't pint, stack empty\n", line_number);
+		fprintf(stderr, "L%u: can't pint, stack empty\n", line_number);
 		free_list(global_variable.stack);
 		fclose(global_variable.file);
 		exit(EXIT_FAILURE);
