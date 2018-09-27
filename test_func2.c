@@ -10,13 +10,14 @@ global_var global_variable;
 void add(stack_t **stack, unsigned int line_number)
 {
 	int j;
-	stack_t *runner = (*stack)->next;
+	stack_t *runner;
 
-	if ((*stack)->next == NULL || (*stack) == NULL || stack == NULL)
+	if ((*stack) == NULL || stack == NULL || (*stack)->next == NULL)
 	{
 		fprintf(stderr, "L%u: can't add, stack too short", line_number);
 		exit(EXIT_FAILURE);
 	}
+	runner = (*stack)->next;
 	j = (*stack)->n + runner->n;
 	runner->n = j;
 	runner->prev = NULL;
