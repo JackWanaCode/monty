@@ -75,7 +75,7 @@ void pstr(stack_t **stack, unsigned int line_number)
 		runner = *stack;
 	while (runner)
 	{
-		if (runner->n <= 0 || runner->n > 177)
+		if (runner->n <= 0 || runner->n > 127)
 			break;
 		printf("%c", runner->n);
 		runner = runner->next;
@@ -136,7 +136,7 @@ void rotr(stack_t **stack, unsigned int line_number)
 	stack_t *af_curr = NULL;
 
 	(void) line_number;
-	if (!stack || !(*stack) || !(*stack)->next)
+	if (!stack || !(*stack) || !((*stack)->next))
 		return;
 	af_curr = (*stack)->next;
 	while (*stack)
