@@ -22,8 +22,10 @@ void exec(char (*array)[80])
 		{"pstr", pstr},
 		{"rotl", rotl},
 		{"rotr", rotr}
-	};
-	for (j = 0; j < 12; j++)
+		{"sub", sub},
+		{"div", _div},
+		{"mul", _mul}
+	for (j = 0; j < 15; j++)
 	{
 		if (strcmp(func_array[j].opcode, array[0]) == 0)
 		{
@@ -35,7 +37,7 @@ void exec(char (*array)[80])
 		else if (array[0][0] == '#')
 			nop(&(global_variable.stack),
 			    global_variable.line_number);
-		else if (j == 11)
+		else if (j == 14)
 		{
 			fprintf(stderr, "L%u: unknown instruction %s\n",
 				global_variable.line_number, array[0]);

@@ -16,7 +16,7 @@ void push(stack_t **stack, unsigned int line_number)
 
 	if (!num)
 	{
-		fprintf(stderr, "L%i: usage: push integer\n", line_number);
+		fprintf(stderr, "L%u: usage: push integer\n", line_number);
 		free_list(global_variable.stack);
 		fclose(global_variable.file);
 		exit(EXIT_FAILURE);
@@ -26,9 +26,11 @@ void push(stack_t **stack, unsigned int line_number)
 		if (i != 0 && num[i] == '\0')
 			break;
 		if (num[i] < '0' || num[i] > '9')
-			if (((num[0] != '-' && num[0] != '+') && i == 0) || i != 0)
+			if ((num[i] == '-' || num[i] != '+') && num[i + 1] != '\0')
+				continue;
+			else
 			{
-				fprintf(stderr, "L%i: usage: push integer\n", line_number);
+				fprintf(stderr, "L%u: usage: push integer\n", line_number);
 				free_list(global_variable.stack);
 				fclose(global_variable.file);
 				exit(EXIT_FAILURE);
@@ -80,7 +82,7 @@ void pint(stack_t **stack, unsigned int line_number)
 	(void) line_number;
 	if (stack == NULL || *stack == NULL)
 	{
-		fprintf(stderr, "L%i: can't pint, stack empty\n", line_number);
+		fprintf(stderr, "L%u: can't pint, stack empty\n", line_number);
 		free_list(global_variable.stack);
 		fclose(global_variable.file);
 		exit(EXIT_FAILURE);
