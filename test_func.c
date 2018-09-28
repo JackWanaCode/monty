@@ -21,19 +21,26 @@ void push(stack_t **stack, unsigned int line_number)
 		fclose(global_variable.file);
 		exit(EXIT_FAILURE);
 	}
-	while (num[i] != '\0')
+	while (1)
 	{
+		if (i != 0 && num[i] == '\0')
+			break;
 		if (num[i] < '0' || num[i] > '9')
 		{
-			if ((num[i] == '-' || num[i] != '+') && num[i + 1] != '\0')
-				i = i;
-			else
+			if (((num[0] != '-' && num[0] != '+') && i == 0) || i != 0)
 			{
-				fprintf(stderr, "L%u: usage: push integer\n", line_number);
+				fprintf(stderr, "L%i: usage: push integer\n", line_number);
 				free_list(global_variable.stack);
 				fclose(global_variable.file);
 				exit(EXIT_FAILURE);
 			}
+			if ((num[0] == '-' && num[0] == '+') || num[i + 1] == '\0')
+			{
+                                fprintf(stderr, "L%i: usage: push integer\n", line_number);
+                                free_list(global_variable.stack);
+                                fclose(global_variable.file);
+                                exit(EXIT_FAILURE);
+                        }
 		}
 		i++;
 	}
