@@ -84,7 +84,41 @@ void pstr(stack_t **stack, unsigned int line_number)
 }
 
 /**
- * rotl - rotate the stack
+ * rotr - rotate the stack, first element become the last one
+ * @stack: Struct stack_s as stack_t **ptr
+ * @line_number: File line number
+ * Return: Nothing (void)
+ */
+void rotr(stack_t **stack, unsigned int line_number)
+{
+	stack_t *runner;
+	stack_t *previous = NULL;
+	stack_t *bf_previous = NULL;
+
+	(void)line_number;
+	if (!stack || !(*stack) || (*stack)->next == NULL)
+		return;
+	runner = *stack;
+	for (; runner->next; runner = runner->next)
+		;
+	while (runner->prev)
+	{
+		bf_previous = previous;
+		previous = runner;
+		runner = runner->prev;
+		previous->prev = runner->prev;
+		runner->prev = previous;
+		previous->next = runner;
+		runner->next = bf_previous;
+		if (bf_previous)
+			bf_previous->prev = runner;
+		runner = previous;
+		previous = previous->next;
+	}
+	*stack = runner;
+}
+/**
+ * rotl - Down to top
  * @stack: Struct stack_s as stack_t **ptr
  * @line_number: File line number
  * Return: Nothing (void)
@@ -123,30 +157,4 @@ void rotl(stack_t **stack, unsigned int line_number)
 			previous = bf_previous->next;
 		}
 	}
-}
-/**
- * rotr - Top to Down
- * @stack: Struct stack_s as stack_t **ptr
- * @line_number: File line number
- * Return: Nothing (void)
- */
-void rotr(stack_t **stack, unsigned int line_number)
-{
-	stack_t *bf_curr = NULL;
-	stack_t *af_curr = NULL;
-
-	(void) line_number;
-	if (!stack || !(*stack) || !((*stack)->next))
-		return;
-	af_curr = (*stack)->next;
-	while (*stack)
-	{
-		(*stack)->next = bf_curr;
-		(*stack)->prev = af_curr;
-		bf_curr = *stack;
-		*stack = af_curr;
-		if (af_curr)
-			af_curr = af_curr->next;
-	}
-	*stack = bf_curr;
 }
