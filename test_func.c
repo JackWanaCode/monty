@@ -23,16 +23,19 @@ void push(stack_t **stack, unsigned int line_number)
 	}
 	while (1)
 	{
+		printf("c = %c\n i = %i\n", num[i], i);
 		if (i != 0 && num[i] == '\0')
 			break;
 		if (num[i] < '0' || num[i] > '9')
-			if (((num[0] != '-' && num[0] != '+') && i == 0) || i != 0)
+		{
+			if (((num[0] != '-' && num[0] != '+') && num[0] == ' ') && num[1] > '9')
 			{
 				fprintf(stderr, "L%u: usage: push integer\n", line_number);
 				free_list(global_variable.stack);
 				fclose(global_variable.file);
 				exit(EXIT_FAILURE);
 			}
+		}
 		i++;
 	}
 	new = malloc(sizeof(stack_t));
