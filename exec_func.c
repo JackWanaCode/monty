@@ -21,10 +21,11 @@ void exec(char (*array)[80])
 		{"pchar", pchar},
 		{"pstr", pstr},
 		{"rotl", rotl},
-		{"rotr", rotr}
+		{"rotr", rotr},
 		{"sub", sub},
 		{"div", _div},
 		{"mul", _mul}
+	};
 	for (j = 0; j < 15; j++)
 	{
 		if (strcmp(func_array[j].opcode, array[0]) == 0)

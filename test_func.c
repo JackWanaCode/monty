@@ -26,6 +26,7 @@ void push(stack_t **stack, unsigned int line_number)
 		if (i != 0 && num[i] == '\0')
 			break;
 		if (num[i] < '0' || num[i] > '9')
+		{
 			if ((num[i] == '-' || num[i] != '+') && num[i + 1] != '\0')
 				continue;
 			else
@@ -35,6 +36,7 @@ void push(stack_t **stack, unsigned int line_number)
 				fclose(global_variable.file);
 				exit(EXIT_FAILURE);
 			}
+		}
 		i++;
 	}
 	new = malloc(sizeof(stack_t));
