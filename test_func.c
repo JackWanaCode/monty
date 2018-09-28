@@ -28,6 +28,8 @@ void push(stack_t **stack, unsigned int line_number)
 	if ((*stack) != NULL)
 		(*stack)->prev = new;
 	(*stack) = new;
+	if (global_variable.queue_ask && (*stack)->next)
+		rotl(stack, line_number);
 }
 
 /**

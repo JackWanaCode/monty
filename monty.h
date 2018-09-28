@@ -50,6 +50,7 @@ typedef struct global_v
 	FILE *file;
 	unsigned int line_number;
 	char *number;
+	int queue_ask;
 	stack_t *stack;
 } global_var;
 
@@ -70,6 +71,8 @@ void rotr(stack_t **stack, unsigned int line_number);
 void sub(stack_t **stack, unsigned int line_number);
 void _div(stack_t **stack, unsigned int line_number);
 void _mul(stack_t **stack, unsigned int line_number);
+void queue(stack_t **stack, unsigned int line_number);
+void stack(stack_t **stack, unsigned int line_number);
 void exec(char (*array)[80]);
 void free_list(stack_t *stack);
 int _atoi(char *str);

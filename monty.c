@@ -28,6 +28,7 @@ int main(int argc, char **argv)
 	}
 	global_variable.line_number = 1;
 	global_variable.stack = NULL;
+	global_variable.queue_ask = 0;
 	while (fgets(line, sizeof(line), global_variable.file))
 	{
 		i = 0;
