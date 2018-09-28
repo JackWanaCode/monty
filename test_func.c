@@ -11,39 +11,9 @@ global_var global_variable;
 void push(stack_t **stack, unsigned int line_number)
 {
 	stack_t *new;
-	int i = 0;
 	char *num = global_variable.number;
 
-	if (!num)
-	{
-		fprintf(stderr, "L%u: usage: push integer\n", line_number);
-		free_list(global_variable.stack);
-		fclose(global_variable.file);
-		exit(EXIT_FAILURE);
-	}
-	while (1)
-	{
-		if (i != 0 && num[i] == '\0')
-			break;
-		if (num[i] < '0' || num[i] > '9')
-		{
-			if (((num[0] != '-' && num[0] != '+') && i == 0) || i != 0)
-			{
-				fprintf(stderr, "L%i: usage: push integer\n", line_number);
-				free_list(global_variable.stack);
-				fclose(global_variable.file);
-				exit(EXIT_FAILURE);
-			}
-			if ((num[0] == '-' && num[0] == '+') || num[i + 1] == '\0')
-			{
-                                fprintf(stderr, "L%i: usage: push integer\n", line_number);
-                                free_list(global_variable.stack);
-                                fclose(global_variable.file);
-                                exit(EXIT_FAILURE);
-                        }
-		}
-		i++;
-	}
+	(void)line_number;
 	new = malloc(sizeof(stack_t));
 	if (new == NULL)
 	{
@@ -52,7 +22,7 @@ void push(stack_t **stack, unsigned int line_number)
 		fclose(global_variable.file);
 		exit(EXIT_FAILURE);
 	}
-	new->n = atoi(num);
+	new->n = _atoi(num);
 	new->next = (*stack);
 	new->prev = NULL;
 	if ((*stack) != NULL)

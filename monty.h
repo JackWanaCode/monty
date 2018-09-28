@@ -72,5 +72,6 @@ void _div(stack_t **stack, unsigned int line_number);
 void _mul(stack_t **stack, unsigned int line_number);
 void exec(char (*array)[80]);
 void free_list(stack_t *stack);
+int _atoi(char *str);
 
 #endif
